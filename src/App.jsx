@@ -1,64 +1,75 @@
 import "./App.css";
-import BioData from "./components/BioData";
+import { useState, useEffect } from "react";
+// const add = (a, b) => {
+// 	return a + b
+// }
 
-const bioDataInfo = [
-	{
-		name: "Mahir Asief",
-		email: "asiefmahir1@gmail.com",
-		phone: "+88224254",
-		skills: ["Js", "react", "redux"],
-		interests: ["Chess", "football"],
-	},
-	{
-		name: "SR",
-		email: "srsetu@gmail.com",
-		phone: "+34535435435",
-		skills: ["Js", "react", "redux", "WP"],
-		interests: ["Chess", "football", "SPACE"],
-	},
-	{
-		name: "Albena",
-		email: "albena@gmail.com",
-		phone: "+454454",
-		skills: ["Js", "react", "redux", "WP", "CSS"],
-		interests: ["Chess"],
-	},
-	{
-		name: "Mahmudul",
-		email: "mahmudul@gmail.com",
-		phone: "+454454",
-		skills: ["Js", "react", "redux", "WP", "CSS"],
-		interests: ["Chess"],
-	},
-];
+// add(10 , 20)
 
 function App() {
-	console.log("I am being invoked");
+	const [posts, setPosts] = useState([]);
+	const [counter, setCounter] = useState(0);
+	const [counter2, setCounter2] = useState(10);
+	// const [loading, setLoad]
+	// posts = data
+	// let count = 0;
 
-	const eListener = () => {
-		alert("Event is being triggered");
-	};
+	useEffect(() => {
+		// js
+		// promise in javascript
+		console.log("I am inside useEffect");
+		const getAllPosts = async () => {
+			const res = await fetch(
+				`https://jsonplaceholder.typicode.com/posts`,
+			);
+			console.log(res, "res");
+			const data = await res.json();
+			console.log(data, "data");
+			setPosts(data);
+		};
+
+		// js single threaded
+		getAllPosts();
+	}, []);
+
+	console.log("I am outside useEffect");
+
+	// setTimeout()
+	// document.getElementById()
+
+	// fetch()
+
+	// Error()
 
 	return (
 		<div className="app">
-			<h2>Bio Data Simple Practice</h2>
-			{bioDataInfo.map((bio) => (
-				<>
-					<BioData
-						name={bio.name}
-						phone={bio.phone}
-						email={bio.email}
-						skills={bio.skills}
-						interests={bio.interests}
-					/>
-					<hr />
-					<hr />
-				</>
-			))}
-			<button onClick={(e) => alert(e.target)}>Click me</button>
+			<h2>All Posts</h2>
+			<div className="counter-app">
+				<p>The value of the counter is {counter}</p>
+				<button onClick={() => setCounter(counter + 1)}>
+					Increase By 1
+				</button>
+			</div>
+			<hr />
+			<div className="counter-app">
+				<p>The value of the counter is {counter2}</p>
+				<button onClick={() => setCounter2(counter2 + 10)}>
+					Increase By 10
+				</button>
+			</div>
+			<ul>
+				{posts.map((post) => (
+					<li key={post.id}>{post.title}</li>
+				))}
+			</ul>
 		</div>
 	);
 }
+// component has 2 layer
+
+// 1) presentation layer -> html, css/ design layer -> web designer
+// 2) data layer -> i) props ii) state -> dynamic data -> web app developer
+
 // BioData()
 // component ->
 // 1) A component must be a function
@@ -68,3 +79,20 @@ function App() {
 export default App;
 
 // jsx- > html-ish code -> javascript xml
+
+// asynchronous js -> promised base
+// state mechanism
+// rendering re-rendering
+
+// fetch('')
+// 	.then()
+// 	.then()
+// 	.catch(err => {
+
+// 	})
+
+// class Person {
+
+// }
+
+// const Person =
